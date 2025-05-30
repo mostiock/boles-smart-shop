@@ -1,17 +1,18 @@
-# BOLES Enterprise Smart Shop
+# BOLES Smart Home E-commerce Platform
 
-A modern, feature-rich e-commerce platform for smart home devices built with Next.js 15, TypeScript, and Tailwind CSS. This shopping platform provides a seamless experience for browsing, comparing, and purchasing smart home devices with advanced features like product comparison, wishlist, and comprehensive search functionality.
+A modern, feature-rich e-commerce platform for smart home devices built with Next.js 15, TypeScript, and Tailwind CSS. This shopping platform provides a seamless experience for browsing, comparing, and purchasing smart home devices with **real-time NGN currency conversion**, advanced search functionality, and responsive design using shadcn/ui components.
 
-![BOLES Smart Shop](https://via.placeholder.com/1200x600/112137/43abc3?text=BOLES+Smart+Shop)
+![BOLES Smart Shop](https://via.placeholder.com/1200x600/112137/43abc3?text=BOLES+Smart+Home+Platform)
 
 ## 🌟 Features
 
 ### Core E-commerce Features
 - **Product Catalog**: Browse 50+ smart home devices with detailed specifications
+- **Real-time Currency Conversion**: Automatic USD to NGN conversion with live exchange rates
 - **Advanced Search**: Real-time search with autocomplete and recent search history
 - **Product Filtering**: Filter by category, price range, brand, and features
 - **Product Sorting**: Sort by price, rating, popularity, and newest
-- **Shopping Cart**: Add/remove items with persistent cart state
+- **Shopping Cart**: Add/remove items with persistent cart state in NGN
 - **Product Comparison**: Compare up to 4 products side-by-side
 - **Wishlist**: Save favorite products for later
 - **Product Reviews**: Customer reviews and ratings system
@@ -27,8 +28,38 @@ A modern, feature-rich e-commerce platform for smart home devices built with Nex
 - **Server-Side Rendering**: Built with Next.js 15 App Router
 - **Type Safety**: Full TypeScript implementation
 - **Modern UI**: Built with shadcn/ui components and Tailwind CSS
-- **State Management**: React Context API for cart, auth, search, and comparison
+- **State Management**: React Context API for cart, auth, search, comparison, and currency
 - **Performance**: Optimized with Next.js features and best practices
+- **Currency API Integration**: Multiple exchange rate APIs with fallback support
+
+## 💱 Currency Conversion System
+
+The platform features a sophisticated real-time currency conversion system that automatically converts product prices from USD to Nigerian Naira (NGN):
+
+### Key Features
+- **Real-time Exchange Rates**: Fetches live USD to NGN exchange rates from multiple APIs
+- **Automatic Fallback**: Uses backup APIs and fallback rates to ensure reliability
+- **Smart Caching**: 1-hour cache duration to minimize API calls and improve performance
+- **Error Handling**: Graceful degradation with fallback rates if APIs are unavailable
+- **Multiple API Sources**: 
+  - Primary: `exchangerate-api.com`
+  - Backup: `open.er-api.com`
+  - Fallback: Static rate (₦1,589.77 as of May 30, 2025)
+
+### Currency Features
+- **Automatic Conversion**: All prices automatically display in NGN
+- **Format Consistency**: Proper Naira formatting with Nigerian locale
+- **Currency Status**: Real-time currency status indicator in the header
+- **Refresh Capability**: Manual refresh option for exchange rates
+- **Context Management**: Global currency state management via React Context
+
+### Technical Implementation
+```typescript
+// Currency conversion with caching
+const rate = await getCurrentExchangeRate();
+const ngnPrice = usdPrice * rate;
+const formatted = formatNaira(ngnPrice); // ₦125,000
+```
 
 ## 🛠 Technology Stack
 
@@ -40,6 +71,7 @@ A modern, feature-rich e-commerce platform for smart home devices built with Nex
 - **Package Manager**: Bun
 - **Linting**: Biome
 - **Build Tool**: Turbopack (development)
+- **Currency APIs**: exchangerate-api.com, open.er-api.com
 
 ## 🚀 Quick Start
 
@@ -51,8 +83,8 @@ A modern, feature-rich e-commerce platform for smart home devices built with Nex
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mostiock/boles-enterprise-smart-shop.git
-   cd boles-enterprise-smart-shop
+   git clone https://github.com/mostiock/boles-smart-shop.git
+   cd boles-smart-shop
    ```
 
 2. **Install dependencies**
@@ -115,6 +147,22 @@ The application uses BOLES Enterprise brand colors:
 - **Accent**: #f97316 (Orange)
 - **Background**: #f8fafc (Light Gray)
 
+## 🖥️ Screenshots & Demo
+
+### Main Features Showcase
+- **Homepage**: Product catalog with category filtering and NGN pricing
+- **Product Details**: Individual product pages with specifications and reviews
+- **Shopping Cart**: Cart sidebar with NGN totals and currency status
+- **Search**: Real-time search with autocomplete functionality
+- **Currency Conversion**: Live USD to NGN conversion display
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+
+### Live Demo
+The application can be deployed to various platforms:
+- **Vercel**: Recommended for Next.js applications
+- **Netlify**: Static site deployment option
+- **Local Development**: Full-featured development environment
+
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
@@ -156,26 +204,56 @@ bun run format
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2025 BOLES Enterprise
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
 
 ## 🔗 Links
 
-- **Repository**: [GitHub](https://github.com/mostiock/boles-enterprise-smart-shop)
+- **Repository**: [GitHub](https://github.com/mostiock/boles-smart-shop)
 - **Documentation**: [Next.js Docs](https://nextjs.org/docs)
 - **shadcn/ui**: [Component Library](https://ui.shadcn.com)
+- **Exchange Rate API**: [ExchangeRate-API](https://exchangerate-api.com)
+- **Tailwind CSS**: [Documentation](https://tailwindcss.com/docs)
 
 ## 💡 Future Enhancements
 
-- [ ] Payment integration (Stripe)
-- [ ] Order history and tracking
-- [ ] User profiles and preferences
-- [ ] Product recommendations
-- [ ] Inventory management
-- [ ] Multi-language support
-- [ ] Dark mode theme
-- [ ] Progressive Web App (PWA)
-- [ ] Advanced analytics
-- [ ] Admin dashboard
+- [ ] **Payment Integration**: Stripe/Paystack for secure NGN payments
+- [ ] **Order Management**: Order history, tracking, and status updates
+- [ ] **User Profiles**: User preferences, addresses, and account management
+- [ ] **Product Recommendations**: AI-powered product suggestions
+- [ ] **Inventory Management**: Real-time stock tracking and notifications
+- [ ] **Multi-language Support**: English and local Nigerian languages
+- [ ] **Dark Mode**: Theme switching capability
+- [ ] **Progressive Web App**: Offline functionality and app installation
+- [ ] **Advanced Analytics**: User behavior and sales analytics
+- [ ] **Admin Dashboard**: Comprehensive admin panel for product management
+- [ ] **Currency Alerts**: Exchange rate change notifications
+- [ ] **Bulk Pricing**: Wholesale pricing for bulk orders
+- [ ] **Product Reviews**: Enhanced review system with images
+- [ ] **Social Sharing**: Product sharing on social media platforms
 
 ---
 
